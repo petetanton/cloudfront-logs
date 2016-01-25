@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Streaming Rocket | Connected Players</title>
+
+    <style type="text/css">
+        body, html {
+            font-family: sans-serif;
+        }
+    </style>
+
+    <script src="js/vis.js"></script>
+    <link href="css/vis.css" rel="stylesheet" type="text/css" />
+    <script src="js/jQuery-2.1.3.min.js"></script>
+</head>
+<body>
+<h2>Streaming Rocket | Connected Players</h2>
+<div style="width:700px; font-size:14px; text-align: justify;">
+    Connected live and historical players. A connection counts as any Silverlight or HTML5 player that is loaded in a client's browser. Even if the client is not playing the stream.
+</div>
+<br />
+<div id="visualization"></div>
+
+<script type="text/javascript">
+
+    var container = document.getElementById('visualization');
+    var items = [
+        {x: '2014-06-11', y: 10},
+        {x: '2014-06-12', y: 25},
+        {x: '2014-06-13', y: 30},
+        {x: '2014-06-14', y: 10},
+        {x: '2014-06-15', y: 15},
+        {x: '2014-06-16', y: 30}
+    ];
+
+    var dataset = new vis.DataSet();
+    var options = {
+        start: '2015-01-01',
+        end: '2016-01-01'
+    };
+    var graph2d = new vis.Graph2d(container, dataset, options);
+
+    var lastUpdateTime = "2015-01-01T00:00:00";
+    function UpdateData()
+    {
+
+        $.ajax({
+            url: 'http://localhost:8080/stats/no-of-requests?since=' + lastUpdateTime,
+            type: 'GET',
+            success: function(response) {
+                for (var i = 0; i < response.length; i++) {
+                    dataset.add({x:response[i].timestamp, y:response[i].noOfConnectedPlayers});
+                }
+            }
+        });
+
+
+        var d = new Date();
+        var month = d.getUTCMonth() + 1;
+        if (month < 10) {
+            month = "0" + month;
+        }
+        lastUpdateTime = d.getUTCFullYear() + "-" + month + "-" + d.getUTCDate() + "T" + d.getUTCHours() + ":" + d.getUTCMinutes() + ":" + d.getUTCSeconds();
+
+
+
+    }
+    var updateInterval = setInterval(UpdateData, 59000);
+    UpdateData();
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="sr.platform.cloudfront.CloudfrontLogLine" table="cloudfront_logs">
+        <id name="id" type="int" column="id">
+            <generator class="increment" />
+        </id>
+        <property name="date">
+            <column name="log_date" />
+        </property>
+        <property name="xEdgeLocation">
+            <column name="xEdgeLocation" />
+        </property>
+        <property name="scBytes">
+            <column name="scBytes" />
+        </property>
+        <property name="clientIp">
+            <column name="clientIp" />
+        </property>
+        <property name="httpMethod">
+            <column name="httpMethod" />
+        </property>
+        <property name="cloudfrontDomain">
+            <column name="cloudfrontDomain" />
+        </property>
+        <property name="requestStem">
+            <column name="requestStem" />
+        </property>
+        <property name="httpStatus">
+            <column name="httpStatus" />
+        </property>
+        <property name="referrer">
+            <column name="referrer" />
+        </property>
+        <property name="clientUserAgent">
+            <column name="clientUserAgent" />
+        </property>
+        <property name="queryString">
+            <column name="queryString" />
+        </property>
+        <property name="clientCookie">
+            <column name="clientCookie" />
+        </property>
+        <property name="xEdgeResultType">
+            <column name="xEdgeResultType" />
+        </property>
+        <property name="xEdgeRequestId">
+            <column name="xEdgeRequestId" />
+        </property>
+        <property name="xHostHeader">
+            <column name="xHostHeader" />
+        </property>
+        <property name="clientProtocol">
+            <column name="clientProtocol" />
+        </property>
+        <property name="csBytes">
+            <column name="csBytes" />
+        </property>
+        <property name="timeTaken">
+            <column name="timeTaken" />
+        </property>
+
+    </class>
+</hibernate-mapping>
